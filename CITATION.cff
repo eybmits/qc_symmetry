@@ -1,12 +1,39 @@
 cff-version: 1.2.0
-message: "If you use this software or reproducibility package, please cite it using this metadata."
+message: "If you use this software or reproducibility package, please cite the accompanying paper."
+title: "Exploiting More Than Symmetry in Variational Quantum Machine Learning"
 type: software
-title: "vqml-symmetry: Reproducibility Package for Symmetry-Aware Variational Quantum Machine Learning"
 authors:
   - family-names: "Baumann"
     given-names: "Markus"
+    orcid: "https://orcid.org/0009-0007-3575-1006"
+  - family-names: "Linnhoff-Popien"
+    given-names: "Claudia"
+    orcid: "https://orcid.org/0000-0001-6284-9286"
+  - family-names: "Stein"
+    given-names: "Jonas"
+    orcid: "https://orcid.org/0000-0001-5727-9151"
 repository-code: "https://github.com/eybmits/vqml-symmetry"
+url: "https://arxiv.org/abs/2606.20316"
+license: "MIT"
 keywords:
   - "variational quantum machine learning"
+  - "equivariance"
   - "symmetry"
-  - "reproducibility"
+  - "reproducible research"
+preferred-citation:
+  type: article
+  title: "Exploiting More Than Symmetry in Variational Quantum Machine Learning"
+  authors:
+    - family-names: "Baumann"
+      given-names: "Markus"
+      orcid: "https://orcid.org/0009-0007-3575-1006"
+    - family-names: "Linnhoff-Popien"
+      given-names: "Claudia"
+      orcid: "https://orcid.org/0000-0001-6284-9286"
+    - family-names: "Stein"
+      given-names: "Jonas"
+      orcid: "https://orcid.org/0000-0001-5727-9151"
+  year: 2026
+  journal: "arXiv preprint"
+  doi: "10.48550/arXiv.2606.20316"
+  url: "https://arxiv.org/abs/2606.20316"
