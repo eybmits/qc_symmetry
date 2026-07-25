@@ -646,7 +646,7 @@ def make_fig2_main_evidence(
         "D2_V4": {"marker": "D", "ls": "-", "lw": 2.0 * line_lw_scale, "zorder": 4},
         "Z2_rot180": {"marker": "s", "ls": "-", "lw": 1.9 * line_lw_scale, "zorder": 3},
         "Z2_reflection": {"marker": "v", "ls": "-", "lw": 1.9 * line_lw_scale, "zorder": 3},
-        "none": {"marker": "x", "ls": "--", "lw": 1.8 * line_lw_scale, "zorder": 2},
+        "none": {"marker": "o", "ls": "--", "lw": 1.8 * line_lw_scale, "zorder": 2},
     }
     for subgroup in ["D4", "C4", "D2_V4", "Z2_rot180", "Z2_reflection", "none"]:
         sub = summary[summary["subgroup"] == subgroup].sort_values("train_size")
@@ -663,6 +663,15 @@ def make_fig2_main_evidence(
             linewidth=0.0,
             zorder=style["zorder"] - 1.5,
         )
+        # The unshared baseline gets open markers; all others are filled.
+        if subgroup == "none":
+            marker_face = "white"
+            marker_edge_color = fig2_subgroup_colors[subgroup]
+            marker_edge_width = max(0.8, marker_edge * 1.4)
+        else:
+            marker_face = fig2_subgroup_colors[subgroup]
+            marker_edge_color = "white"
+            marker_edge_width = marker_edge
         ax.plot(
             xpos,
             mean,
@@ -670,8 +679,9 @@ def make_fig2_main_evidence(
             ls=style["ls"],
             marker=style["marker"],
             markersize=5.6 * marker_scale,
-            markeredgecolor="white",
-            markeredgewidth=marker_edge,
+            markerfacecolor=marker_face,
+            markeredgecolor=marker_edge_color,
+            markeredgewidth=marker_edge_width,
             color=fig2_subgroup_colors[subgroup],
             label=SUBGROUP_LABELS[subgroup],
             zorder=style["zorder"],
