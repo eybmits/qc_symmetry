@@ -1200,19 +1200,10 @@ def make_fig3_controls(
         va="center",
         zorder=8,
     )
-    ax.annotate(
+    ax.text(
+        24.0,
+        edge_c4["mean"],
         r"edge/$\mathbf{C}_4$",
-        xy=(edge_c4["params"] - 2.5, edge_c4["mean"] + 0.006),
-        xytext=(44, 0.786 if micro else 0.790),
-        arrowprops={
-            "arrowstyle": "->",
-            "lw": 0.65,
-            "color": "#000000",
-            "shrinkA": 2.0,
-            "shrinkB": 5.0,
-            "mutation_scale": 5.4 if micro else 7.0,
-            "connectionstyle": "arc3,rad=0.00",
-        },
         fontsize=annot_fs,
         color="#000000",
         fontweight="bold",
@@ -1260,7 +1251,7 @@ def make_fig3_controls(
     ax.set_ylabel("test accuracy")
     ax.set_ylim(0.60, 0.83)
     ax.set_yticks([0.60, 0.70, 0.80])
-    ax.set_xlim(40, 215)
+    ax.set_xlim(20, 215)
     ax.set_xticks([40, 100, 150, 215])
     grid(ax, linewidth=grid_lw)
     style_axes(ax, tick_length=tick_length, tick_width=tick_width, spine_width=spine_width)
