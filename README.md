@@ -1,11 +1,11 @@
-# Exploiting More Than Symmetry in Variational Quantum Machine Learning
+# Symmetry Alone Is Not an Ansatz: Task-Aligned Interactions in Equivariant Quantum Circuits
 
 [![arXiv](https://img.shields.io/badge/arXiv-2606.20316-b31b1b.svg)](https://arxiv.org/abs/2606.20316)
 [![Accepted at QCE26](https://img.shields.io/badge/QCE26-accepted-00629B.svg)](https://qce.quantum.ieee.org/2026/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Complete reproducibility package for the paper *Exploiting More Than Symmetry
-in Variational Quantum Machine Learning*.
+Complete reproducibility package for the paper *Symmetry Alone Is Not an
+Ansatz: Task-Aligned Interactions in Equivariant Quantum Circuits*.
 
 **Publication status:** accepted as a workshop paper at the
 **4th International Workshop on Quantum Machine Learning: From Research to
