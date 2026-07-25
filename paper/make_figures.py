@@ -1200,10 +1200,19 @@ def make_fig3_controls(
         va="center",
         zorder=8,
     )
-    ax.text(
-        24.0,
-        edge_c4["mean"],
+    ax.annotate(
         r"edge/$\mathbf{C}_4$",
+        xy=(edge_c4["params"] - 2.0, edge_c4["mean"] + 0.006),
+        xytext=(24, 0.788 if micro else 0.792),
+        arrowprops={
+            "arrowstyle": "->",
+            "lw": 0.65,
+            "color": "#000000",
+            "shrinkA": 2.0,
+            "shrinkB": 5.0,
+            "mutation_scale": 5.4 if micro else 7.0,
+            "connectionstyle": "arc3,rad=0.00",
+        },
         fontsize=annot_fs,
         color="#000000",
         fontweight="bold",
