@@ -9,12 +9,17 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage[caption=false,font=footnotesize]{subfig}
-\definecolor{NeonRefGreen}{HTML}{39FF14}
-\definecolor{RepoLinkBlue}{HTML}{0057FF}
-\usepackage[colorlinks=true,linkcolor=black,citecolor=NeonRefGreen,urlcolor=RepoLinkBlue]{hyperref}
+% IEEE camera-ready: no hyperlinks, all text black.
+\usepackage[draft]{hyperref}
+% Draft-mode hyperref drops \hypersetup metadata, so set the PDF info directly.
+\pdfinfo{
+  /Title (Exploiting More Than Symmetry in Variational Quantum Machine Learning)
+  /Author (Markus Baumann, Claudia Linnhoff-Popien, and Jonas Stein)
+  /Subject (Variational quantum learning and equivariant ansatz design)
+  /Keywords (quantum machine learning, equivariance, symmetry, inductive bias, variational quantum circuits, parameter sharing, generalization)
+}
 \usepackage{cleveref}
 \usepackage{orcidlink}
-\usepackage{eso-pic}
 \usetikzlibrary{arrows.meta,calc,positioning}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -30,24 +35,6 @@
   \newcommand{\paperPdfAuthor}{Anonymous Authors}
 \else
   \newcommand{\paperPdfAuthor}{Markus Baumann, Claudia Linnhoff-Popien, and Jonas Stein}
-\fi
-
-% IEEE accepted-manuscript copyright notice on page 1 (required for the arXiv posting).
-\ifanonymouspaper\else
-\AddToShipoutPictureFG*{%
-  \AtPageLowerLeft{%
-    \hspace{\dimexpr(\paperwidth-\textwidth)/2\relax}%
-    \raisebox{0.35in}[0pt][0pt]{%
-      \parbox[b]{\textwidth}{\scriptsize
-        \copyright~2026 IEEE. Personal use of this material is permitted.
-        Permission from IEEE must be obtained for all other uses, in any current
-        or future media, including reprinting/republishing this material for
-        advertising or promotional purposes, creating new collective works, for
-        resale or redistribution to servers or lists, or reuse of any copyrighted
-        component of this work in other works.}%
-    }%
-  }%
-}
 \fi
 \hypersetup{
   pdftitle={Exploiting More Than Symmetry in Variational Quantum Machine Learning},

@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from typing import Callable
 
 import pandas as pd
 
 from src.circuits import ALL_CIRCUIT_FAMILIES
+from src.data_tictactoe import DatasetSplit
 from src.train import run_and_save_rows, train_model
 from src.utils import (
     CSV_DIR,
@@ -103,6 +105,8 @@ def run_configs(
     output_path: Path,
     *,
     resume: bool = False,
+    split_factory: Callable[[ExperimentConfig], DatasetSplit] | None = None,
+    resume_row_compatible: Callable[[dict], bool] | None = None,
 ) -> pd.DataFrame:
     ensure_results_dirs()
     rows: list[dict] = []
@@ -110,6 +114,13 @@ def run_configs(
     if resume and output_path.exists() and output_path.stat().st_size > 0:
         existing = pd.read_csv(output_path)
         rows = existing.to_dict("records")
+        if resume_row_compatible is not None:
+            incompatible = [row for row in rows if not resume_row_compatible(row)]
+            if incompatible:
+                raise RuntimeError(
+                    f"Refusing to resume {output_path}: {len(incompatible)} rows were "
+                    "produced by an incompatible protocol, source tree, or environment."
+                )
         completed_keys = {_normalized_key(row) for row in rows}
         print(f"Resuming from {output_path}: {len(rows)} existing rows.", flush=True)
 
@@ -129,7 +140,8 @@ def run_configs(
             f"epsilon={config.epsilon}",
             flush=True,
         )
-        _, row, _ = train_model(config)
+        split = split_factory(config) if split_factory is not None else None
+        _, row, _ = train_model(config, split=split)
         rows.append(row)
         completed_keys.add(_config_key(config))
         run_and_save_rows(rows, output_path)

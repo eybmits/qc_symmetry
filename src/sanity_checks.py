@@ -15,6 +15,7 @@ from .data_tictactoe import (
     make_corrupted_labels,
     make_d4_orbits,
     make_balanced_split,
+    make_d4_group_holdout_split,
 )
 from .circuits import LINE_CIRCUIT_FAMILIES, line_parameter_channels, uses_edge_pairs
 from .groups_d4 import (
@@ -72,6 +73,58 @@ def check_dataset() -> None:
     assert set(map(tuple, split.x_train.astype(int))).isdisjoint(
         set(map(tuple, split.x_test.astype(int)))
     )
+
+
+def check_leak_free_dataset() -> None:
+    x, _, _ = generate_all_states()
+    board_to_index = {
+        tuple(board.astype(int).tolist()): index for index, board in enumerate(x)
+    }
+    orbit_by_index = {
+        state_index: orbit_id
+        for orbit_id, orbit in enumerate(make_d4_orbits(x=x))
+        for state_index in orbit
+    }
+    expected_test: set[int] | None = None
+
+    for train_seed in range(10):
+        previous_train: set[int] = set()
+        for train_size in (30, 60, 120, 240, 450, 600):
+            split = make_d4_group_holdout_split(
+                train_size=train_size,
+                test_size=348,
+                train_seed=train_seed,
+                test_seed=0,
+            )
+            train_indices = {
+                board_to_index[tuple(board.astype(int).tolist())]
+                for board in split.x_train
+            }
+            test_indices = {
+                board_to_index[tuple(board.astype(int).tolist())]
+                for board in split.x_test
+            }
+            train_orbits = {orbit_by_index[index] for index in train_indices}
+            test_orbits = {orbit_by_index[index] for index in test_indices}
+
+            assert len(train_indices) == train_size
+            assert len(test_indices) == 348
+            assert train_indices.isdisjoint(test_indices)
+            assert train_orbits.isdisjoint(test_orbits)
+            assert previous_train.issubset(train_indices)
+            assert split.metadata["actual_disjoint"] is True
+            assert split.metadata["group_disjoint"] is True
+            assert split.metadata["overlap_count"] == 0
+            assert split.metadata["orbit_overlap_count"] == 0
+            for class_name in ("circle", "draw", "cross"):
+                assert int(np.sum(split.train_labels == class_name)) == train_size // 3
+                assert int(np.sum(split.test_labels == class_name)) == 116
+
+            if expected_test is None:
+                expected_test = test_indices
+            else:
+                assert test_indices == expected_test
+            previous_train = train_indices
 
 
 def check_approximate_symmetry_tools() -> None:
@@ -219,6 +272,7 @@ def main() -> None:
 
     check_groups_and_orbits()
     check_dataset()
+    check_leak_free_dataset()
     check_approximate_symmetry_tools()
     check_model_invariance()
     check_parameter_counts()

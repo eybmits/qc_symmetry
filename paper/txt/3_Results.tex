@@ -1,19 +1,19 @@
 \begin{figure*}[t]
 \centering
 \includegraphics[width=.94\textwidth]{gfx/fig3_controls}
-\caption{Controls and ablations. (a) Parameter-matched random sharing underperforms group-orbit sharing. (b) Ablations are anchored by the labelled edge/$D_4$ ansatz; the strongest model combines edge interactions with both line channels. (c) Accuracy is not explained by parameter count alone.}
+\caption{Controls and ablations. (a) Parameter-matched random sharing underperforms group-orbit sharing. (b) Ablations are anchored by the edge ansatz; the strongest model combines edge interactions with both line channels. (c) Accuracy is not explained by parameter count alone.}
 \label{fig:controls}
 \end{figure*}
 
-This section evaluates the two design axes introduced above:
-the strength of imposed symmetry and the choice of trainable
-interactions. We first compare no sharing, partial subgroup
+We first compare no sharing, partial subgroup
 sharing, and full $D_4$ sharing with the edge circuit fixed.
 We then add winning-line interactions and use controls to
 separate symmetry-aware sharing from mere parameter reduction.
 All runs use mean-squared error, Adam with learning rate
 $0.01$~\cite{kingma2015adam}, batch size 15, 30 minibatch
-updates per epoch, 100 epochs, fixed seed blocks, PennyLane
+updates per epoch, 100 epochs, ten random seeds per
+configuration (bands and error bars show 95\% confidence
+intervals across seeds), PennyLane
 simulation~\cite{bergholm2018pennylane}, and PyTorch
 optimization~\cite{paszke2019pytorch}.
 
@@ -21,17 +21,16 @@ Across these experiments, three trends emerge, summarized in
 Fig.~\ref{fig:main}. First, the unconstrained edge ansatz has more
 parameters but generalizes worse than the $D_4$-equivariant
 edge model. At 600 training examples, edge/none reaches about
-$0.63$ test accuracy, while edge/$D_4$ reaches about $0.69$
-with a smaller train-test gap. This supports the basic
+$0.65$ test accuracy, while edge/$D_4$ reaches about $0.68$
+with less than half the train-test gap. This supports the basic
 equivariance effect: the correct board symmetry improves
-generalization by shaping the hypothesis class.
+generalization.
 
 Second, the symmetry effect is not strictly all-or-nothing.
 Full $D_4$ remains the natural symmetry choice, but $C_4$
 rotation sharing tracks it closely across the data grid and is
-slightly ahead at the smallest training size. We interpret this
-as evidence that symmetry strength is a tunable architectural
-bias: partial symmetry can preserve most of the benefit while
+slightly ahead at the largest training sizes. Symmetry strength thus acts as a tunable architectural
+bias: partial symmetry preserves most of the benefit while
 leaving the circuit less constrained. The random-sharing
 control in Fig.~\ref{fig:controls}(a) confirms that the gain is not
 caused by parameter reduction alone; parameter-matched sharing
@@ -40,17 +39,15 @@ without group-orbit structure performs worse.
 The largest improvement comes from changing the interaction
 structure. Adding winning-line gates to the equivariant edge
 circuit, as shown in Fig.~\ref{fig:main}(c), raises the best $D_4$
-model from about $0.69$ to roughly $0.80$ test accuracy, with
-the $C_4$ variant close behind. The edge ansatz can only
+model from about $0.68$ to about $0.76$ test accuracy, with
+the $C_4$ variant reaching about $0.73$. The edge ansatz can only
 represent rows, columns, and diagonals indirectly, whereas the
 line gates act directly on the motifs that determine the label.
 This is the central result: symmetry helps, but task-aligned
 equivariant interactions help more.
 
 The controls in Fig.~\ref{fig:controls} rule out simpler
-explanations. The effect is not arbitrary parameter reduction,
-because random sharing underperforms orbit sharing. It is also
-not just parameter count: edge+lines/$D_4$ has 90 parameters,
+explanations. The effect is not just parameter count: edge+lines/$D_4$ has 90 parameters,
 far fewer than the 204-parameter unshared edge baseline, yet
 performs better. The ablations show that line channels help on
 their own, but the strongest model combines edge interactions

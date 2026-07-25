@@ -4,11 +4,14 @@ The three labels are circle win, draw, and cross win, encoded
 as $(+1,-1,-1)$, $(-1,+1,-1)$, and $(-1,-1,+1)$. As in
 Meyer et al.~\cite{meyer2023symmetry}, unfinished games are
 counted as draws. Since the full set contains only 5478 legal,
-reachable boards, we enumerate it exactly and draw
-class-balanced train and test splits from this set. The labels
+reachable boards, we enumerate it exactly. The labels
 are invariant under the eight rotations and reflections of the
 board, forming the dihedral group $D_4$; this symmetry is
-illustrated in Fig.~\ref{fig:protocol}(a).
+illustrated in Fig.~\ref{fig:protocol}(a). Train and test splits
+are class-balanced and orbit-disjoint: a fixed test set of 348
+boards is held out as complete $D_4$ orbits, and training
+examples are drawn only from the remaining orbits, so no test
+board is related to a training board by a board symmetry.
 
 We use one qubit per field, as shown in Fig.~\ref{fig:protocol}(b).
 Each value $g_i$ is mapped to the angle $x_i=2\pi g_i/3$ and
