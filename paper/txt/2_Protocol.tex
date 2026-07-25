@@ -6,8 +6,8 @@ Meyer et al.~\cite{meyer2023symmetry}, unfinished games are
 counted as draws. Since the full set contains only 5478 legal,
 reachable boards, we enumerate it exactly. The labels
 are invariant under the eight rotations and reflections of the
-board, forming the dihedral group $D_4$; this symmetry is
-illustrated in Fig.~\ref{fig:protocol}(a). Train and test splits
+board, forming the dihedral group $D_4$, as illustrated in
+Fig.~\ref{fig:protocol}(a). Train and test splits
 are class-balanced and orbit-disjoint: a fixed test set of 348
 boards is held out as complete $D_4$ orbits, and training
 examples are drawn only from the remaining orbits, so no test
@@ -50,7 +50,7 @@ and $p=2$ repetitions, keeping depth fixed across all sweeps.
 
 Our baseline is the edge ansatz of Meyer et al.,
 shown in Fig.~\ref{fig:protocol}(c). It applies local $R_YR_X$
-rotations and directed controlled-$R_Y$ entanglers on neighbouring
+rotations and directed controlled-$R_Y$ entanglers on neighboring
 rim fields and selected center connections. Symmetry enters only
 through parameter sharing: gates in the same $H$-orbit share the
 same parameter or parameter tuple.
@@ -76,7 +76,7 @@ these variants have $204$, $108$, $126$, $60$, $78$, and $54$
 trainable parameters, respectively.
 
 The second design axis is the interaction structure. The edge
-ansatz couples neighbouring fields, but Tic-Tac-Toe labels are
+ansatz couples neighboring fields, but Tic-Tac-Toe labels are
 decided by complete three-cell winning lines. We therefore add
 orbit-shared gates on the eight winning triples: three rows,
 three columns, and two diagonals, as shown in

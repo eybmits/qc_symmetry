@@ -125,7 +125,7 @@
     \node[circle, draw=black!80, fill=white, line width=0.85pt, inner sep=0pt, minimum size=0.24cm] at (\p) {};
   }
 }
-% single-qubit board: 9 qubits coloured by orbit (same colour = shared parameters)
+% single-qubit board: 9 qubits coloured by orbit (same color = shared parameters)
 \newcommand{\SingleQubitBoard}{%
   \DeclareBoardCoords
   \draw[line width=0.5pt, black!45] (-0.28,-0.90)--(-0.28,0.90);
@@ -256,7 +256,7 @@
   \node[anchor=west, font=\scriptsize, text=black!85] at (11.93,4.84) {$=CR_Y$};
   \begin{scope}[shift={(9.95,3.18)}, scale=1.13, transform shape]\SingleQubitBoard\end{scope}
   \begin{scope}[shift={(12.23,3.18)}, scale=1.13, transform shape]\EntangleBoard\end{scope}
-  \node[font=\tiny, text=black!72, align=center, text width=2.12cm] at (9.95,1.39) {same colour: shared $R_X,R_Y$};
+  \node[font=\tiny, text=black!72, align=center, text width=2.12cm] at (9.95,1.39) {same color: shared $R_X,R_Y$};
   \node[font=\tiny, text=black!72, align=center, text width=2.12cm] at (12.23,1.39) {$CR_Y$ on directed pairs, orbit-shared};
 
   % ===== Panel (d): task-aligned winning-line gates (ours) =====
@@ -265,6 +265,6 @@
   \IconCCRZ{16.24}{5.38}
   \node[anchor=west, font=\small, text=black!88] at (16.40,5.38) {$=\mathrm{CCR}_Z$};
   \begin{scope}[shift={(15.85,3.30)}, scale=1.50]\WinLineBoard\end{scope}
-  \node[font=\scriptsize, text=black!80, align=center, text width=3.8cm] at (15.85,1.42) {one $ZZZ$ and $\mathrm{CCR}_Z$ per winning triple (3 qubits); 8 triples, orbit-shared};
+  \node[font=\scriptsize, text=black!80, align=center, text width=3.8cm] at (15.85,1.42) {one $ZZZ$ and $\mathrm{CCR}_Z$ per winning triple (3 qubits). 8 triples, orbit-shared};
 \end{tikzpicture}
 \endgroup
